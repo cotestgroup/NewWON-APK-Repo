@@ -32,35 +32,35 @@ export const DetailView: React.FC<DetailViewProps> = ({ apk }) => {
       {/* Metadata Grid */}
       <div className="grid gap-3">
         <div className="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between border border-outline-variant/10 shadow-sm">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
               <Database size={20} />
             </div>
             <span className="text-sm text-on-surface-variant font-semibold uppercase tracking-wider">File Size</span>
           </div>
-          <span className="text-base font-bold text-on-surface">{apk.size}</span>
+          <span className="text-sm font-bold text-on-surface">{apk.size}</span>
         </div>
 
         <div className="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between border border-outline-variant/10 shadow-sm">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
               <Calendar size={20} />
             </div>
             <span className="text-sm text-on-surface-variant font-semibold uppercase tracking-wider">Uploaded</span>
           </div>
-          <span className="text-base font-bold text-on-surface">{apk.timestamp}</span>
+          <span className="text-sm font-bold text-on-surface text-right">{apk.timestamp}</span>
         </div>
 
         <div className="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between border border-outline-variant/10 shadow-sm">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
               <Fingerprint size={20} />
             </div>
             <span className="text-sm text-on-surface-variant font-semibold uppercase tracking-wider">Build ID</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-mono text-on-surface bg-surface-container-high px-2 py-1 rounded">{apk.buildId}</span>
-            <button className="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-primary">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-sm font-mono text-on-surface bg-surface-container-high px-2 py-1 rounded truncate">{apk.buildId}</span>
+            <button className="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-primary shrink-0">
               <Copy size={18} />
             </button>
           </div>
@@ -78,7 +78,7 @@ export const DetailView: React.FC<DetailViewProps> = ({ apk }) => {
             alt="QR Code" 
             className="w-44 h-44" 
             referrerPolicy="no-referrer"
-            src={`https://api.qrserver.com/v1/create-qr-code/?size=176x176&data=https://ais-dev-2vhekfabqgmnobgb66cms5-24463632500.asia-southeast1.run.app/download/${apk.id}`} 
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=176x176&data=${encodeURIComponent(apk.downloadUrl || '')}`} 
           />
           {/* Decorative Corners */}
           <div className="absolute -top-2 -left-2 w-8 h-8 border-t-4 border-l-4 border-primary rounded-tl-xl"></div>
@@ -93,10 +93,14 @@ export const DetailView: React.FC<DetailViewProps> = ({ apk }) => {
 
       {/* Primary Action */}
       <div className="pt-4 sticky bottom-6">
-        <button className="w-full bg-primary-gradient text-white py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-transform">
+        <a 
+          href={apk.downloadUrl}
+          download={apk.name}
+          className="w-full bg-primary-gradient text-white py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-transform"
+        >
           <Download size={24} fill="currentColor" />
           Download APK
-        </button>
+        </a>
       </div>
     </main>
   );

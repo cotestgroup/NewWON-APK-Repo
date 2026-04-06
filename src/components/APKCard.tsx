@@ -63,12 +63,16 @@ export const APKCard: React.FC<APKCardProps> = ({ apk, onClick, isOld }) => {
       
       {/* Action Area */}
       <div className="px-4 pb-4 mt-2">
-        <button className={`w-full h-11 rounded-lg font-bold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform ${
-          isOld ? 'bg-surface-container-high text-on-surface-variant' : 'bg-primary-gradient text-white shadow-md shadow-primary/20'
-        }`}>
+        <a 
+          href={apk.downloadUrl} 
+          download={apk.name}
+          className={`w-full h-11 rounded-lg font-bold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform ${
+            isOld ? 'bg-surface-container-high text-on-surface-variant' : 'bg-primary-gradient text-white shadow-md shadow-primary/20'
+          }`}
+        >
           <Download size={18} />
           Download APK
-        </button>
+        </a>
       </div>
     </motion.div>
   );

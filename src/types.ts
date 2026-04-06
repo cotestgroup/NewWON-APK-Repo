@@ -7,6 +7,7 @@ export interface APKArtifact {
   size: string;
   type: 'release' | 'debug';
   buildId?: string;
+  downloadUrl?: string;
 }
 
 export interface RepoStats {
